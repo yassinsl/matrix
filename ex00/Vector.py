@@ -29,6 +29,7 @@ class Vector(Generic[K]):
 
     def size(self) -> int:
         return len(self.data)
+
 def main()-> int:
     u = Vector([2., 3.])
     v = Vector([5., 7.])
