@@ -31,7 +31,13 @@ class Vector(Generic[K]):
 
     def size(self) -> int:
         return len(self.data)
-
+    def dot(self, v: "Vector[K]") -> K:
+        if self.size() !=  v.size():
+              raise ValueError(
+                    f"Lists must have the same length. Got {len(list1)} and {len(list2)}."
+                    ) 
+        return sum(self.data[i] * v.data[i] for i in range(self.size())) 
+                
 class Matrix(Generic[K]):
     def __init__(self, rows: list[list[K]]):
         self.rows = [list(r) for r in rows]
