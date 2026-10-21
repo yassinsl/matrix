@@ -24,7 +24,8 @@ class Vector(Generic[K]):
                     ) 
         self.data = [self.data[i] - v.data[i] for i in range(self.size())]
         return self
- 
+    def mul_vec(self, vec: Vector) -> Vector:
+
     def scl(self, a: K) -> "Vector[K]":
         # TODO: self = a * self  (in place)
         self.data = [new_content * a for new_content in self.data]
@@ -38,6 +39,7 @@ class Vector(Generic[K]):
                     f"Lists must have the same length. Got {len(list1)} and {len(list2)}."
                     ) 
         return sum(self.data[i] * v.data[i] for i in range(self.size())) 
+
 
     def norm_1(self) -> float: 
         return round(sum(abs(value) for value in self.data), 1)
@@ -85,3 +87,9 @@ class Matrix(Generic[K]):
 
     def size(self)-> tuple[int, int]:
         return len(self.rows), len(self.rows[0]) if self.rows else 0
+    def mul_vec(self, vec: Vector) -> Vector: 
+        #  y = WX
+        return Vector ([sum(self.rows[i][j] * vec.data[j] for j in range(len(vec.data))) for i in range(len(self.rows))])
+    def mul_mat(self, mat: "Matrix") -> "Matrix":
+        #  Y = WX rows1* columns2 
+        return Matrix([[sum(self.rows[i][k] * mat.rows[k][j] for k in range(len(mat.rows))) for j in range(len(mat.rows[0]))] for i in range(len(self.rows))])
