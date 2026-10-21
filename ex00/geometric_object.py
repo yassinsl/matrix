@@ -1,4 +1,5 @@
 from typing import Generic, TypeVar, List
+import math
 
 K = TypeVar("K")
 
@@ -37,6 +38,15 @@ class Vector(Generic[K]):
                     f"Lists must have the same length. Got {len(list1)} and {len(list2)}."
                     ) 
         return sum(self.data[i] * v.data[i] for i in range(self.size())) 
+
+    def norm_1(self) -> float: 
+        return round(sum(abs(value) for value in self.data), 1)
+
+    def norm(self) -> float:
+        return round(math.sqrt(sum(value **2 for value in self.data)), 1)
+
+    def norm_inf(self) -> float:
+        return round(max(abs(value) for value in self.data), 1)
                 
 class Matrix(Generic[K]):
     def __init__(self, rows: list[list[K]]):
